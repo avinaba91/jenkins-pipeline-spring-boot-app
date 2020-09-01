@@ -13,14 +13,14 @@ pipeline {
     	// compile and generate single executable jar with all dependencies
 		stage('Build') {
             steps {
-                sh 'mvn install'
+                sh 'mvn clean install'
             }
         }
         // build docker image of an application
 		stage('Package') {
             steps {
                 script {
-                    artifact = docker.build("praveenellaiyan/jenkins-springboot-app:myapp")
+                    artifact = docker.build("avinaba91/app/jenkins-springboot-app:myapp")
                 }
             }
         }
