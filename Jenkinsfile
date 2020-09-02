@@ -6,13 +6,12 @@ pipeline {
 	}
 	
     agent {
-	    kubernetes {
-		  	label 'springboot-app'
-		  	cloud 'kubernetes'
-		  	defaultContainer 'maven'
-			yamlFile 'KubernetesPod.yaml'
-	    }
+    	label 'none' 
   	}
+  	tools {
+        maven "maven"
+        docker "docker"
+    }
     stages {
 		stage('Build') {
             steps {
