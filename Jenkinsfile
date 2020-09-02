@@ -1,8 +1,8 @@
 pipeline {
 	environment {
-	    registry = "https://registry.hub.docker.com"
+	    registry = "avinaba91/app/jenkins-springboot-app"
 	    registryCredentials = "docker"
-	    artifact = ''
+	    dockerImage = ''
 	}
 	
     agent any
@@ -20,16 +20,15 @@ pipeline {
 		stage('Package') {
             steps {
                 script {
-                    artifact = docker.build("avinaba91/app/jenkins-springboot-app:myapp")
+                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
                 }
             }
         }
 		stage('Publish') {
             steps {				
                 script {
-                    docker.withRegistry(registry, registryCredentials) {
-      					artifact.push()
-    				}
+                    docker.withRegistry( '', registryCredential )
+            		dockerImage.push()
                 }
             }
         }
