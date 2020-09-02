@@ -7,8 +7,8 @@ pipeline {
 	
     agent {
 	    kubernetes {
-		  	label: "springboot-app"
-		  	cloud: 'myk8scluster'
+		  	label 'springboot-app'
+		  	cloud 'myk8scluster'
 		  	defaultContainer 'maven'
 			yamlFile 'KubernetesPod.yaml'
 	    }
