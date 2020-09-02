@@ -1,7 +1,8 @@
 pipeline {
 	environment {
-	    registry = "avinaba91/app/jenkins-springboot-app"
-	    registryCredentials = "docker"
+		registry = 'https://registry.hub.docker.com'
+	    image = 'avinaba91/app/jenkins-springboot-app'
+	    registryCredentials = 'docker'
 	    dockerImage = ''
 	}
 	
@@ -20,15 +21,16 @@ pipeline {
 		stage('Package') {
             steps {
                 script {
-                    dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                    dockerImage = docker.build image + ":$BUILD_NUMBER"
                 }
             }
         }
 		stage('Publish') {
             steps {				
                 script {
-                    docker.withRegistry( '', registryCredential )
-            		dockerImage.push()
+                    docker.withRegistry(registry, registryCredential) {
+                    	dockerImage.push()                                                                  
+                    }
                 }
             }
         }
