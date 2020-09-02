@@ -1,22 +1,22 @@
 def artifact
 pipeline {
-	// configure environmental variables
 	environment {
 	    registry = "https://registry.hub.docker.com"
 	    registryCredentials = "docker"
 	}
 	
-	// instruct jenkins to allocate executor and workspace for entire pipeline
-    agent any
-    
+    agent {
+	    kubernetes {
+	      defaultContainer 'maven'
+	      yamlFile 'KubernetesPod.yaml'
+	    }
+  	}
     stages {
-    	// compile and generate single executable jar with all dependencies
 		stage('Build') {
             steps {
-                sh 'mvn clean install'
+                sh 'mvn clean install -Dmaven.test.skip=true'
             }
         }
-        // build docker image of an application
 		stage('Package') {
             steps {
                 script {
@@ -24,7 +24,6 @@ pipeline {
                 }
             }
         }
-        // push built docker image to docker hub
 		stage('Publish') {
             steps {				
                 script {
