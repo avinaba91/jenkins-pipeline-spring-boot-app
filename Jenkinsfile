@@ -5,9 +5,8 @@ pipeline {
 	    artifact = ''
 	}
 	
-    agent {
-    	label 'none' 
-  	}
+    agent any
+    
   	tools {
         maven "maven"
         dockerTool "docker"
