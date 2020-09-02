@@ -1,8 +1,8 @@
-def artifact
 pipeline {
 	environment {
 	    registry = "https://registry.hub.docker.com"
 	    registryCredentials = "docker"
+	    artifact = ''
 	}
 	
     agent {
