@@ -1,7 +1,7 @@
 pipeline {
 	environment {
 		registry = 'https://registry.hub.docker.com'
-	    image = 'avinaba91/app/jenkins-springboot-app'
+	    image = 'avinaba91/jenkins-springboot-app'
 	    registryCredentials = 'docker'
 	    dockerImage = ''
 	}
